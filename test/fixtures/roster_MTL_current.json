@@ -1,0 +1,224 @@
+{
+ "forwards": [
+  {
+   "id": 1,
+   "sweaterNumber": 14,
+   "firstName": {
+    "default": "Nick"
+   },
+   "lastName": {
+    "default": "Suzuki"
+   },
+   "positionCode": "C",
+   "headshot": ""
+  },
+  {
+   "id": 2,
+   "sweaterNumber": 13,
+   "firstName": {
+    "default": "Cole"
+   },
+   "lastName": {
+    "default": "Caufield"
+   },
+   "positionCode": "R",
+   "headshot": ""
+  },
+  {
+   "id": 3,
+   "sweaterNumber": 20,
+   "firstName": {
+    "default": "Juraj"
+   },
+   "lastName": {
+    "default": "Slafkovský"
+   },
+   "positionCode": "L",
+   "headshot": ""
+  },
+  {
+   "id": 4,
+   "sweaterNumber": 93,
+   "firstName": {
+    "default": "Ivan"
+   },
+   "lastName": {
+    "default": "Demidov"
+   },
+   "positionCode": "R",
+   "headshot": ""
+  },
+  {
+   "id": 5,
+   "sweaterNumber": 77,
+   "firstName": {
+    "default": "Kirby"
+   },
+   "lastName": {
+    "default": "Dach"
+   },
+   "positionCode": "C",
+   "headshot": ""
+  },
+  {
+   "id": 6,
+   "sweaterNumber": 76,
+   "firstName": {
+    "default": "Zachary"
+   },
+   "lastName": {
+    "default": "Bolduc"
+   },
+   "positionCode": "L",
+   "headshot": ""
+  },
+  {
+   "id": 7,
+   "sweaterNumber": 11,
+   "firstName": {
+    "default": "Brendan"
+   },
+   "lastName": {
+    "default": "Gallagher"
+   },
+   "positionCode": "R",
+   "headshot": ""
+  },
+  {
+   "id": 8,
+   "sweaterNumber": 15,
+   "firstName": {
+    "default": "Alex"
+   },
+   "lastName": {
+    "default": "Newhook"
+   },
+   "positionCode": "C",
+   "headshot": ""
+  },
+  {
+   "id": 9,
+   "sweaterNumber": 17,
+   "firstName": {
+    "default": "Josh"
+   },
+   "lastName": {
+    "default": "Anderson"
+   },
+   "positionCode": "R",
+   "headshot": ""
+  },
+  {
+   "id": 10,
+   "sweaterNumber": 71,
+   "firstName": {
+    "default": "Jake"
+   },
+   "lastName": {
+    "default": "Evans"
+   },
+   "positionCode": "C",
+   "headshot": ""
+  }
+ ],
+ "defensemen": [
+  {
+   "id": 20,
+   "sweaterNumber": 48,
+   "firstName": {
+    "default": "Lane"
+   },
+   "lastName": {
+    "default": "Hutson"
+   },
+   "positionCode": "D",
+   "headshot": ""
+  },
+  {
+   "id": 21,
+   "sweaterNumber": 53,
+   "firstName": {
+    "default": "Noah"
+   },
+   "lastName": {
+    "default": "Dobson"
+   },
+   "positionCode": "D",
+   "headshot": ""
+  },
+  {
+   "id": 22,
+   "sweaterNumber": 21,
+   "firstName": {
+    "default": "Kaiden"
+   },
+   "lastName": {
+    "default": "Guhle"
+   },
+   "positionCode": "D",
+   "headshot": ""
+  },
+  {
+   "id": 23,
+   "sweaterNumber": 8,
+   "firstName": {
+    "default": "Mike"
+   },
+   "lastName": {
+    "default": "Matheson"
+   },
+   "positionCode": "D",
+   "headshot": ""
+  },
+  {
+   "id": 24,
+   "sweaterNumber": 47,
+   "firstName": {
+    "default": "Jayden"
+   },
+   "lastName": {
+    "default": "Struble"
+   },
+   "positionCode": "D",
+   "headshot": ""
+  },
+  {
+   "id": 25,
+   "sweaterNumber": 72,
+   "firstName": {
+    "default": "Arber"
+   },
+   "lastName": {
+    "default": "Xhekaj"
+   },
+   "positionCode": "D",
+   "headshot": ""
+  }
+ ],
+ "goalies": [
+  {
+   "id": 30,
+   "sweaterNumber": 32,
+   "firstName": {
+    "default": "Jacob"
+   },
+   "lastName": {
+    "default": "Fowler"
+   },
+   "positionCode": "G",
+   "headshot": ""
+  },
+  {
+   "id": 31,
+   "sweaterNumber": 35,
+   "firstName": {
+    "default": "Samuel"
+   },
+   "lastName": {
+    "default": "Montembeault"
+   },
+   "positionCode": "G",
+   "headshot": ""
+  }
+ ]
+}

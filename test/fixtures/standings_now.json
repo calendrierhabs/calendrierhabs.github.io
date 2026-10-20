@@ -1,0 +1,665 @@
+{
+ "standings": [
+  {
+   "teamAbbrev": {
+    "default": "CAR"
+   },
+   "placeName": {
+    "default": "Carolina",
+    "fr": "Caroline"
+   },
+   "teamCommonName": {
+    "default": "Hurricanes"
+   },
+   "teamName": {
+    "default": "Carolina Hurricanes"
+   },
+   "conferenceAbbrev": "E",
+   "divisionAbbrev": "M",
+   "gamesPlayed": 9,
+   "wins": 7,
+   "losses": 1,
+   "otLosses": 1,
+   "points": 15,
+   "streakCode": "W",
+   "streakCount": 2,
+   "l10Wins": 7,
+   "l10Losses": 1,
+   "l10OtLosses": 1,
+   "goalFor": 25,
+   "goalAgainst": 24,
+   "leagueSequence": 1,
+   "divisionSequence": 1,
+   "conferenceSequence": 1,
+   "wildcardSequence": 0
+  },
+  {
+   "teamAbbrev": {
+    "default": "BOS"
+   },
+   "placeName": {
+    "default": "Boston",
+    "fr": "Boston"
+   },
+   "teamCommonName": {
+    "default": "Bruins"
+   },
+   "teamName": {
+    "default": "Boston Bruins"
+   },
+   "conferenceAbbrev": "E",
+   "divisionAbbrev": "A",
+   "gamesPlayed": 9,
+   "wins": 7,
+   "losses": 2,
+   "otLosses": 0,
+   "points": 14,
+   "streakCode": "W",
+   "streakCount": 2,
+   "l10Wins": 7,
+   "l10Losses": 2,
+   "l10OtLosses": 0,
+   "goalFor": 25,
+   "goalAgainst": 24,
+   "leagueSequence": 2,
+   "divisionSequence": 1,
+   "conferenceSequence": 2,
+   "wildcardSequence": 0
+  },
+  {
+   "teamAbbrev": {
+    "default": "WPG"
+   },
+   "placeName": {
+    "default": "Winnipeg",
+    "fr": "Winnipeg"
+   },
+   "teamCommonName": {
+    "default": "Jets"
+   },
+   "teamName": {
+    "default": "Winnipeg Jets"
+   },
+   "conferenceAbbrev": "W",
+   "divisionAbbrev": "C",
+   "gamesPlayed": 9,
+   "wins": 6,
+   "losses": 2,
+   "otLosses": 1,
+   "points": 13,
+   "streakCode": "W",
+   "streakCount": 2,
+   "l10Wins": 6,
+   "l10Losses": 2,
+   "l10OtLosses": 1,
+   "goalFor": 25,
+   "goalAgainst": 24,
+   "leagueSequence": 3,
+   "divisionSequence": 1,
+   "conferenceSequence": 1,
+   "wildcardSequence": 0
+  },
+  {
+   "teamAbbrev": {
+    "default": "TBL"
+   },
+   "placeName": {
+    "default": "Tampa Bay",
+    "fr": "Tampa Bay"
+   },
+   "teamCommonName": {
+    "default": "Lightning"
+   },
+   "teamName": {
+    "default": "Tampa Bay Lightning"
+   },
+   "conferenceAbbrev": "E",
+   "divisionAbbrev": "A",
+   "gamesPlayed": 8,
+   "wins": 6,
+   "losses": 2,
+   "otLosses": 0,
+   "points": 12,
+   "streakCode": "W",
+   "streakCount": 2,
+   "l10Wins": 6,
+   "l10Losses": 2,
+   "l10OtLosses": 0,
+   "goalFor": 25,
+   "goalAgainst": 24,
+   "leagueSequence": 4,
+   "divisionSequence": 2,
+   "conferenceSequence": 3,
+   "wildcardSequence": 0
+  },
+  {
+   "teamAbbrev": {
+    "default": "OTT"
+   },
+   "placeName": {
+    "default": "Ottawa",
+    "fr": "Ottawa"
+   },
+   "teamCommonName": {
+    "default": "Senators",
+    "fr": "Sénateurs"
+   },
+   "teamName": {
+    "default": "Ottawa Senators"
+   },
+   "conferenceAbbrev": "E",
+   "divisionAbbrev": "A",
+   "gamesPlayed": 9,
+   "wins": 6,
+   "losses": 3,
+   "otLosses": 0,
+   "points": 12,
+   "streakCode": "W",
+   "streakCount": 2,
+   "l10Wins": 6,
+   "l10Losses": 3,
+   "l10OtLosses": 0,
+   "goalFor": 25,
+   "goalAgainst": 24,
+   "leagueSequence": 5,
+   "divisionSequence": 3,
+   "conferenceSequence": 4,
+   "wildcardSequence": 0
+  },
+  {
+   "teamAbbrev": {
+    "default": "FLA"
+   },
+   "placeName": {
+    "default": "Florida",
+    "fr": "Floride"
+   },
+   "teamCommonName": {
+    "default": "Panthers"
+   },
+   "teamName": {
+    "default": "Florida Panthers"
+   },
+   "conferenceAbbrev": "E",
+   "divisionAbbrev": "A",
+   "gamesPlayed": 9,
+   "wins": 5,
+   "losses": 2,
+   "otLosses": 2,
+   "points": 12,
+   "streakCode": "W",
+   "streakCount": 2,
+   "l10Wins": 5,
+   "l10Losses": 2,
+   "l10OtLosses": 2,
+   "goalFor": 25,
+   "goalAgainst": 24,
+   "leagueSequence": 6,
+   "divisionSequence": 4,
+   "conferenceSequence": 5,
+   "wildcardSequence": 5
+  },
+  {
+   "teamAbbrev": {
+    "default": "WSH"
+   },
+   "placeName": {
+    "default": "Washington",
+    "fr": "Washington"
+   },
+   "teamCommonName": {
+    "default": "Capitals"
+   },
+   "teamName": {
+    "default": "Washington Capitals"
+   },
+   "conferenceAbbrev": "E",
+   "divisionAbbrev": "M",
+   "gamesPlayed": 9,
+   "wins": 6,
+   "losses": 3,
+   "otLosses": 0,
+   "points": 12,
+   "streakCode": "W",
+   "streakCount": 2,
+   "l10Wins": 6,
+   "l10Losses": 3,
+   "l10OtLosses": 0,
+   "goalFor": 25,
+   "goalAgainst": 24,
+   "leagueSequence": 7,
+   "divisionSequence": 2,
+   "conferenceSequence": 6,
+   "wildcardSequence": 0
+  },
+  {
+   "teamAbbrev": {
+    "default": "EDM"
+   },
+   "placeName": {
+    "default": "Edmonton",
+    "fr": "Edmonton"
+   },
+   "teamCommonName": {
+    "default": "Oilers"
+   },
+   "teamName": {
+    "default": "Edmonton Oilers"
+   },
+   "conferenceAbbrev": "W",
+   "divisionAbbrev": "P",
+   "gamesPlayed": 9,
+   "wins": 6,
+   "losses": 3,
+   "otLosses": 0,
+   "points": 12,
+   "streakCode": "W",
+   "streakCount": 2,
+   "l10Wins": 6,
+   "l10Losses": 3,
+   "l10OtLosses": 0,
+   "goalFor": 25,
+   "goalAgainst": 24,
+   "leagueSequence": 8,
+   "divisionSequence": 1,
+   "conferenceSequence": 2,
+   "wildcardSequence": 0
+  },
+  {
+   "teamAbbrev": {
+    "default": "VAN"
+   },
+   "placeName": {
+    "default": "Vancouver",
+    "fr": "Vancouver"
+   },
+   "teamCommonName": {
+    "default": "Canucks"
+   },
+   "teamName": {
+    "default": "Vancouver Canucks"
+   },
+   "conferenceAbbrev": "W",
+   "divisionAbbrev": "P",
+   "gamesPlayed": 9,
+   "wins": 5,
+   "losses": 3,
+   "otLosses": 1,
+   "points": 11,
+   "streakCode": "W",
+   "streakCount": 2,
+   "l10Wins": 5,
+   "l10Losses": 3,
+   "l10OtLosses": 1,
+   "goalFor": 25,
+   "goalAgainst": 24,
+   "leagueSequence": 9,
+   "divisionSequence": 2,
+   "conferenceSequence": 3,
+   "wildcardSequence": 0
+  },
+  {
+   "teamAbbrev": {
+    "default": "BUF"
+   },
+   "placeName": {
+    "default": "Buffalo",
+    "fr": "Buffalo"
+   },
+   "teamCommonName": {
+    "default": "Sabres"
+   },
+   "teamName": {
+    "default": "Buffalo Sabres"
+   },
+   "conferenceAbbrev": "E",
+   "divisionAbbrev": "A",
+   "gamesPlayed": 9,
+   "wins": 4,
+   "losses": 3,
+   "otLosses": 2,
+   "points": 10,
+   "streakCode": "W",
+   "streakCount": 2,
+   "l10Wins": 4,
+   "l10Losses": 3,
+   "l10OtLosses": 2,
+   "goalFor": 25,
+   "goalAgainst": 24,
+   "leagueSequence": 10,
+   "divisionSequence": 5,
+   "conferenceSequence": 7,
+   "wildcardSequence": 7
+  },
+  {
+   "teamAbbrev": {
+    "default": "NSH"
+   },
+   "placeName": {
+    "default": "Nashville",
+    "fr": "Nashville"
+   },
+   "teamCommonName": {
+    "default": "Predators"
+   },
+   "teamName": {
+    "default": "Nashville Predators"
+   },
+   "conferenceAbbrev": "W",
+   "divisionAbbrev": "C",
+   "gamesPlayed": 9,
+   "wins": 5,
+   "losses": 4,
+   "otLosses": 0,
+   "points": 10,
+   "streakCode": "W",
+   "streakCount": 2,
+   "l10Wins": 5,
+   "l10Losses": 4,
+   "l10OtLosses": 0,
+   "goalFor": 25,
+   "goalAgainst": 24,
+   "leagueSequence": 11,
+   "divisionSequence": 2,
+   "conferenceSequence": 4,
+   "wildcardSequence": 0
+  },
+  {
+   "teamAbbrev": {
+    "default": "MTL"
+   },
+   "placeName": {
+    "default": "Montréal",
+    "fr": "Montréal"
+   },
+   "teamCommonName": {
+    "default": "Canadiens"
+   },
+   "teamName": {
+    "default": "Montréal Canadiens"
+   },
+   "conferenceAbbrev": "E",
+   "divisionAbbrev": "A",
+   "gamesPlayed": 8,
+   "wins": 4,
+   "losses": 3,
+   "otLosses": 1,
+   "points": 9,
+   "streakCode": "W",
+   "streakCount": 2,
+   "l10Wins": 4,
+   "l10Losses": 3,
+   "l10OtLosses": 1,
+   "goalFor": 25,
+   "goalAgainst": 24,
+   "leagueSequence": 12,
+   "divisionSequence": 6,
+   "conferenceSequence": 8,
+   "wildcardSequence": 8
+  },
+  {
+   "teamAbbrev": {
+    "default": "NYR"
+   },
+   "placeName": {
+    "default": "New York",
+    "fr": "New York"
+   },
+   "teamCommonName": {
+    "default": "Rangers"
+   },
+   "teamName": {
+    "default": "New York Rangers"
+   },
+   "conferenceAbbrev": "E",
+   "divisionAbbrev": "M",
+   "gamesPlayed": 9,
+   "wins": 4,
+   "losses": 4,
+   "otLosses": 1,
+   "points": 9,
+   "streakCode": "W",
+   "streakCount": 2,
+   "l10Wins": 4,
+   "l10Losses": 4,
+   "l10OtLosses": 1,
+   "goalFor": 25,
+   "goalAgainst": 24,
+   "leagueSequence": 13,
+   "divisionSequence": 3,
+   "conferenceSequence": 9,
+   "wildcardSequence": 0
+  },
+  {
+   "teamAbbrev": {
+    "default": "PIT"
+   },
+   "placeName": {
+    "default": "Pittsburgh",
+    "fr": "Pittsburgh"
+   },
+   "teamCommonName": {
+    "default": "Penguins"
+   },
+   "teamName": {
+    "default": "Pittsburgh Penguins"
+   },
+   "conferenceAbbrev": "E",
+   "divisionAbbrev": "M",
+   "gamesPlayed": 9,
+   "wins": 4,
+   "losses": 4,
+   "otLosses": 1,
+   "points": 9,
+   "streakCode": "W",
+   "streakCount": 2,
+   "l10Wins": 4,
+   "l10Losses": 4,
+   "l10OtLosses": 1,
+   "goalFor": 25,
+   "goalAgainst": 24,
+   "leagueSequence": 14,
+   "divisionSequence": 4,
+   "conferenceSequence": 10,
+   "wildcardSequence": 10
+  },
+  {
+   "teamAbbrev": {
+    "default": "STL"
+   },
+   "placeName": {
+    "default": "St. Louis",
+    "fr": "St. Louis"
+   },
+   "teamCommonName": {
+    "default": "Blues"
+   },
+   "teamName": {
+    "default": "St. Louis Blues"
+   },
+   "conferenceAbbrev": "W",
+   "divisionAbbrev": "C",
+   "gamesPlayed": 9,
+   "wins": 4,
+   "losses": 4,
+   "otLosses": 1,
+   "points": 9,
+   "streakCode": "W",
+   "streakCount": 2,
+   "l10Wins": 4,
+   "l10Losses": 4,
+   "l10OtLosses": 1,
+   "goalFor": 25,
+   "goalAgainst": 24,
+   "leagueSequence": 15,
+   "divisionSequence": 3,
+   "conferenceSequence": 5,
+   "wildcardSequence": 0
+  },
+  {
+   "teamAbbrev": {
+    "default": "CGY"
+   },
+   "placeName": {
+    "default": "Calgary",
+    "fr": "Calgary"
+   },
+   "teamCommonName": {
+    "default": "Flames"
+   },
+   "teamName": {
+    "default": "Calgary Flames"
+   },
+   "conferenceAbbrev": "W",
+   "divisionAbbrev": "P",
+   "gamesPlayed": 9,
+   "wins": 4,
+   "losses": 5,
+   "otLosses": 0,
+   "points": 8,
+   "streakCode": "W",
+   "streakCount": 2,
+   "l10Wins": 4,
+   "l10Losses": 5,
+   "l10OtLosses": 0,
+   "goalFor": 25,
+   "goalAgainst": 24,
+   "leagueSequence": 16,
+   "divisionSequence": 3,
+   "conferenceSequence": 6,
+   "wildcardSequence": 0
+  },
+  {
+   "teamAbbrev": {
+    "default": "TOR"
+   },
+   "placeName": {
+    "default": "Toronto",
+    "fr": "Toronto"
+   },
+   "teamCommonName": {
+    "default": "Maple Leafs"
+   },
+   "teamName": {
+    "default": "Toronto Maple Leafs"
+   },
+   "conferenceAbbrev": "E",
+   "divisionAbbrev": "A",
+   "gamesPlayed": 10,
+   "wins": 3,
+   "losses": 5,
+   "otLosses": 2,
+   "points": 8,
+   "streakCode": "W",
+   "streakCount": 2,
+   "l10Wins": 3,
+   "l10Losses": 5,
+   "l10OtLosses": 2,
+   "goalFor": 25,
+   "goalAgainst": 24,
+   "leagueSequence": 17,
+   "divisionSequence": 7,
+   "conferenceSequence": 11,
+   "wildcardSequence": 11
+  },
+  {
+   "teamAbbrev": {
+    "default": "CHI"
+   },
+   "placeName": {
+    "default": "Chicago",
+    "fr": "Chicago"
+   },
+   "teamCommonName": {
+    "default": "Blackhawks"
+   },
+   "teamName": {
+    "default": "Chicago Blackhawks"
+   },
+   "conferenceAbbrev": "W",
+   "divisionAbbrev": "C",
+   "gamesPlayed": 9,
+   "wins": 3,
+   "losses": 5,
+   "otLosses": 1,
+   "points": 7,
+   "streakCode": "W",
+   "streakCount": 2,
+   "l10Wins": 3,
+   "l10Losses": 5,
+   "l10OtLosses": 1,
+   "goalFor": 25,
+   "goalAgainst": 24,
+   "leagueSequence": 18,
+   "divisionSequence": 4,
+   "conferenceSequence": 7,
+   "wildcardSequence": 7
+  },
+  {
+   "teamAbbrev": {
+    "default": "SJS"
+   },
+   "placeName": {
+    "default": "San Jose",
+    "fr": "San Jose"
+   },
+   "teamCommonName": {
+    "default": "Sharks"
+   },
+   "teamName": {
+    "default": "San Jose Sharks"
+   },
+   "conferenceAbbrev": "W",
+   "divisionAbbrev": "P",
+   "gamesPlayed": 9,
+   "wins": 3,
+   "losses": 5,
+   "otLosses": 1,
+   "points": 7,
+   "streakCode": "W",
+   "streakCount": 2,
+   "l10Wins": 3,
+   "l10Losses": 5,
+   "l10OtLosses": 1,
+   "goalFor": 25,
+   "goalAgainst": 24,
+   "leagueSequence": 19,
+   "divisionSequence": 4,
+   "conferenceSequence": 8,
+   "wildcardSequence": 8
+  },
+  {
+   "teamAbbrev": {
+    "default": "DET"
+   },
+   "placeName": {
+    "default": "Detroit",
+    "fr": "Détroit"
+   },
+   "teamCommonName": {
+    "default": "Red Wings"
+   },
+   "teamName": {
+    "default": "Detroit Red Wings"
+   },
+   "conferenceAbbrev": "E",
+   "divisionAbbrev": "A",
+   "gamesPlayed": 9,
+   "wins": 2,
+   "losses": 5,
+   "otLosses": 2,
+   "points": 6,
+   "streakCode": "W",
+   "streakCount": 2,
+   "l10Wins": 2,
+   "l10Losses": 5,
+   "l10OtLosses": 2,
+   "goalFor": 25,
+   "goalAgainst": 24,
+   "leagueSequence": 20,
+   "divisionSequence": 8,
+   "conferenceSequence": 12,
+   "wildcardSequence": 12
+  }
+ ]
+}
