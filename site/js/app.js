@@ -89,6 +89,8 @@ function decorate(g) {
     long: g.home ? s.vsLong(opp.name, opp.city) : s.atLong(opp.name, opp.city),
     time: g.tbd ? s.tbd : fmt(date, { hour: "numeric", minute: "2-digit" }),
     timeShort: g.tbd ? s.tbdShort : fmt(date, { hour: "numeric", minute: "2-digit" }),
+    // Channels in the reader's language come first.
+    tv: [...(g.tv || [])].sort((x, y) => (y.lang === state.lang) - (x.lang === state.lang)),
     score: g.us != null && g.them != null ? `${g.us}–${g.them}${note ? " " + note : ""}` : "",
     kind: g.type === 1 ? s.preseason : g.type === 3 ? s.playoffs : "",
   };
