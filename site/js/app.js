@@ -1,5 +1,6 @@
 import { STR } from "./i18n.js";
 import { team } from "./teams.js";
+import * as reminders from "./reminders.js";
 
 const US = "MTL";
 // Everything is shown in Montréal time, which is also what the TV listings use.
@@ -213,7 +214,7 @@ function viewHome() {
 
   return `
     <div class="home-grid">
-      <div class="stack">${heroCard}${record}</div>
+      <div class="stack">${heroCard}${reminders.card(state.lang)}${record}</div>
       <div class="stack">
         ${recentRows ? `<section class="stack-sm"><h2 class="section-title">${s.last}</h2><div class="card">${recentRows}</div></section>` : ""}
         ${nextRows ? `<section class="stack-sm"><h2 class="section-title">${s.next}</h2><div class="card">${nextRows}</div>
@@ -482,6 +483,7 @@ app.addEventListener("click", (e) => {
   const el = e.target.closest("[data-action]");
   if (!el || el.disabled) return;
   const a = el.dataset.action;
+  if (a.startsWith("remind")) return reminders.action(a);
   if (a === "tab") {
     const hash = TABS[el.dataset.tab];
     if (tabFromHash() === el.dataset.tab) {
@@ -496,6 +498,7 @@ app.addEventListener("click", (e) => {
   if (a === "lang") {
     state.lang = el.dataset.lang;
     store.set("habs.lang", state.lang);
+    reminders.languageChanged();
   } else if (a === "theme") {
     state.theme = state.theme === "rouge" ? "light" : "rouge";
     store.set("habs.theme", state.theme);
@@ -537,6 +540,7 @@ async function load() {
   render();
 }
 
+reminders.start({ lang: () => state.lang, onChange: render });
 render();
 load();
 setInterval(load, REFRESH_MS);

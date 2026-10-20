@@ -1,0 +1,13 @@
+/* Game-day reminders card on the home screen (js/reminders.js). */
+.remind { display: flex; flex-direction: column; gap: 14px; }
+.remind-head { display: flex; align-items: center; gap: 12px; }
+.remind-icon { width: 44px; height: 44px; flex: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--accent-soft); color: var(--accent); }
+.remind-icon.on { background: var(--primary-bg); color: var(--primary-fg); }
+.remind-title { font-weight: 700; font-size: 18px; }
+.remind .row-sub { font-size: 15px; color: var(--text-2); margin-top: 2px; }
+.remind-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; min-height: 54px; padding: 0 18px; border: 0; border-radius: 14px; background: var(--primary-bg); color: var(--primary-fg); font-size: 18px; font-weight: 700; cursor: pointer; }
+.remind-btn:disabled { opacity: 0.6; cursor: default; }
+.remind-btn.quiet { background: var(--surface-2); color: var(--text); }
+.remind-choice { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.remind-choice .remind-btn { font-size: 16px; padding: 0 10px; }
+.remind-stop { flex: none; min-height: 44px; padding: 0 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface-2); color: var(--text); font-size: 15px; font-weight: 700; cursor: pointer; }

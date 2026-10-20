@@ -26,3 +26,23 @@ npx http-server site                                     # open http://localhost
 ```
 
 No build step and no dependencies: plain HTML, CSS and JavaScript in `site/`.
+
+## Game-day reminders
+
+On the home screen, **Me le rappeler / Remind me** turns on a notification
+about 1 hour before each game, with the TV channels, in the language the
+device uses. It works on Android (Chrome) and on laptops (Chrome, Edge,
+Firefox). Each device turns it on once.
+
+There's no server. The app drops the device's push subscription, encrypted,
+in a private ntfy.sh mailbox. `.github/workflows/reminders.yml` runs every
+10 minutes: `scripts/send-reminders.mjs` reads the mailbox, keeps the device
+list encrypted in `reminders/state.json` and sends what's due. Devices that
+stop answering are dropped on their own, and the app re-sends its
+subscription once a day when opened, so nothing needs looking after.
+
+It needs one repository secret, `REMINDERS_SECRET`. To make a new one (this
+signs everyone out of reminders), run `node scripts/send-reminders.mjs keys`
+after `npm install --no-save web-push@3.6.7` and follow what it prints.
+To check that it works, run the "Send game reminders" workflow by hand with
+"Send a test notification" ticked.
