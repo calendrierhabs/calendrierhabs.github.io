@@ -7,15 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          curl -s https://api-web.nhle.com/v1/standings/now | jq -r '.standings[0:3][] | .teamLogo'
-          for t in ANA BOS BUF CGY CAR CHI COL CBJ DAL DET EDM FLA LAK MIN MTL NSH NJD NYI NYR OTT PHI PIT SJS SEA STL TBL TOR UTA VAN VGK WSH WPG; do
-            for v in light dark; do
-              printf "%s_%s %s\n" $t $v "$(curl -s -o /dev/null -w '%{http_code} %{size_download} %{content_type}' -H 'Referer: https://calendrierhabs.github.io/' https://assets.nhle.com/logos/nhl/svg/${t}_${v}.svg)"
-            done
+          for t in MTL SJS BOS CHI WPG STL DAL PIT BUF WSH CAR NSH DET TBL OTT TOR FLA; do
+            echo "LOGO $t $(curl -s https://assets.nhle.com/logos/nhl/svg/${t}_light.svg | gzip -9 | base64 -w0)"
           done
-          curl -sI https://assets.nhle.com/logos/nhl/svg/MTL_light.svg | grep -i -E "cache|access-control|cross-origin|content-security"
-          mkdir -p logos && for t in MTL SJS UTA BOS; do for v in light dark; do curl -s -o logos/${t}_${v}.svg https://assets.nhle.com/logos/nhl/svg/${t}_${v}.svg; done; done
-      - uses: actions/upload-artifact@v4
-        with:
-          name: logos
-          path: logos
