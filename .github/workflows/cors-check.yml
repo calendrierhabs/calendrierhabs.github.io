@@ -6,14 +6,17 @@ permissions:
   contents: write
 jobs:
   check:
-    if: "!contains(github.event.head_commit.message, 'darklogos done')"
+    if: "!contains(github.event.head_commit.message, 'summary done')"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: actions/setup-node@v5
-        with:
-          node-version: 22
       - run: |
-          mkdir -p darklogos && for t in ANA BOS BUF CGY CAR CHI COL CBJ DAL DET EDM FLA LAK MIN MTL NSH NJD NYI NYR OTT PHI PIT SJS SEA STL TBL TOR UTA VAN VGK WSH WPG; do curl -s -o darklogos/${t}_dark.svg https://assets.nhle.com/logos/nhl/svg/${t}_dark.svg; done
+          mkdir -p espn
+          curl -s -D espn/summary.headers "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892539" -o espn/summary.json
+          curl -s "https://site.web.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892539" -o espn/summary-web.json
+          curl -s -I -H "Origin: https://calendrierhabs.github.io" "https://site.web.api.espn.com/apis/site/v2/sports/hockey/nhl/summary?event=401892539" > espn/summary-web.headers
+          curl -s "https://api-web.nhle.com/v1/gamecenter/2026020141/boxscore" -o espn/nhl-boxscore.json
+          curl -s "https://api-web.nhle.com/v1/gamecenter/2026020141/landing" -o espn/nhl-landing.json
+          ls -la espn
           git config user.name bot && git config user.email bot@example.com
-          git add darklogos && git commit -m "darklogos done" && git push
+          git add espn && git commit -m "summary done" && git push
