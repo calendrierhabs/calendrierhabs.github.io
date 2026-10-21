@@ -1,0 +1,50 @@
+# Game-day reminders: every 10 minutes, picks up devices that turned reminders
+# on in the app and sends a notification about 1 hour before each game.
+# Needs the REMINDERS_SECRET repository secret (see README).
+name: Send game reminders
+
+on:
+  schedule:
+    - cron: "6-56/10 * * * *"
+  workflow_dispatch:
+    inputs:
+      test:
+        description: "Send a test notification to every device now"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: reminders
+  cancel-in-progress: false
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install web-push
+        run: npm install --no-save --no-package-lock --no-audit --no-fund web-push@3.6.7
+
+      - name: Send reminders
+        env:
+          REMINDERS_SECRET: ${{ secrets.REMINDERS_SECRET }}
+        run: node scripts/send-reminders.mjs ${{ inputs.test && '--test' || '' }}
+
+      - name: Save the device list when it changed
+        run: |
+          git config user.name "habs-calendar-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          [ -f reminders/state.json ] || exit 0
+          git add reminders/state.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Update game reminders"
+          git push || (git pull --rebase && git push)
