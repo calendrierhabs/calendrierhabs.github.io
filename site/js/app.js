@@ -287,7 +287,7 @@ function viewCalendar() {
     const colours = g ? ` style="--tbg:${g.team.bg};--tfg:${g.team.fg}"` : "";
     cells += `<button class="${cls}"${colours} data-action="sel" data-key="${key}" aria-pressed="${key === state.sel}" aria-label="${esc(aria)}">
       <span class="day-top"><span class="day-num">${d}</span><span class="day-res">${g?.past ? esc(s.res[g.result] || "") : ""}</span></span>
-      <span><span class="day-opp" style="display:block">${g ? (g.home ? icon("home") : "@") + esc(g.opp) : ""}</span><span class="day-sub">${esc(sub)}</span></span>
+      <span><span class="day-opp">${g ? `${g.home ? icon("home") : "@"}${badge(g.team, "cal", g.future || state.theme === "rouge")}<span class="abbr">${esc(g.opp)}</span>` : ""}</span><span class="day-sub">${esc(sub)}</span></span>
     </button>`;
   }
 

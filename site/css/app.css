@@ -245,7 +245,11 @@ main { flex: 1; width: 100%; max-width: 1200px; margin: 0 auto; padding: 16px 16
    faded once it's been played. */
 .day.next { background: var(--tbg, var(--next-bg)); color: var(--tfg, #FFFFFF); border: 2px solid transparent; }
 .day.past { background: color-mix(in srgb, var(--tbg, var(--next-bg)) var(--fade), var(--surface)); color: var(--text); border: 2px solid transparent; }
-.day-opp svg.icon { width: 0.85em; height: 0.85em; margin-right: 1px; vertical-align: -0.05em; stroke-width: 2.6; }
+.day-opp { display: flex; align-items: center; gap: 1px; min-height: 24px; }
+.day-opp svg.icon { width: 0.85em; height: 0.85em; flex: none; stroke-width: 2.6; }
+/* Phones show the opponent's logo; the letters come back if it can't load. */
+.badge.cal { width: 24px; height: 24px; font-size: 10px; }
+.day-opp .abbr { display: none; }
 .day[aria-pressed="true"] { outline: 3px solid var(--sel-ring); outline-offset: 2px; }
 .day-top { display: flex; justify-content: space-between; align-items: center; gap: 2px; }
 .day-num { font-size: 13px; font-weight: 600; }
@@ -329,7 +333,9 @@ table.standings { width: 100%; border-collapse: collapse; font-variant-numeric: 
   .day-num { font-size: 15px; }
   .day.today .day-num { min-width: 24px; height: 24px; border-radius: 12px; font-size: 13px; }
   .day-res { font-size: 12px; padding: 2px 6px; border-radius: 6px; background: var(--surface); color: var(--text); }
-  .day-opp { font-size: 18px; }
+  .day-opp { font-size: 18px; gap: 4px; overflow: visible; }
+  .badge.cal { width: 32px; height: 32px; font-size: 11px; order: 2; margin: 0 2px 0 auto; }
+  .day-opp .abbr { display: inline; }
   .day-sub { display: block; font-size: 13px; font-weight: 600; opacity: 0.85; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .cal-head { padding: 18px 16px 12px; }
   .cal-head h2 { font-size: 34px; }
