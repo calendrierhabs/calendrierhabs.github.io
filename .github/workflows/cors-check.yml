@@ -2,11 +2,18 @@ name: CORS check (temporary)
 on:
   push:
     branches: [claude/cors-check]
+permissions:
+  contents: write
 jobs:
   check:
+    if: "!contains(github.event.head_commit.message, 'logos fetched')"
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v5
       - run: |
-          for t in MTL SJS BOS CHI WPG STL DAL PIT BUF WSH CAR NSH DET TBL OTT TOR FLA; do
-            echo "LOGO $t $(curl -s https://assets.nhle.com/logos/nhl/svg/${t}_light.svg | gzip -9 | base64 -w0)"
+          mkdir -p logos
+          for t in ANA BOS BUF CGY CAR CHI COL CBJ DAL DET EDM FLA LAK MIN MTL NSH NJD NYI NYR OTT PHI PIT SJS SEA STL TBL TOR UTA VAN VGK WSH WPG; do
+            curl -s -o logos/${t}_light.svg https://assets.nhle.com/logos/nhl/svg/${t}_light.svg
           done
+          git config user.name bot && git config user.email bot@example.com
+          git add logos && git commit -m "logos fetched" && git push
