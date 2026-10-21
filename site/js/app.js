@@ -74,7 +74,7 @@ const icon = (name) => `<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"
 // if the logo can't load (offline, or a team the NHL renamed).
 const LOGO = (abbrev) => `https://assets.nhle.com/logos/nhl/svg/${abbrev}_light.svg`;
 const badge = (tm, size = "") =>
-  `<span class="badge ${size}${tm.abbrev === US ? " us" : ""}" style="background:${tm.bg};color:${tm.fg}">${esc(tm.abbrev)}<img src="${LOGO(encodeURIComponent(tm.abbrev))}" alt="" decoding="async" onerror="this.remove()"></span>`;
+  `<span class="badge ${size}${tm.abbrev === US ? " us" : ""}" style="background:${tm.bg};color:${tm.fg}">${esc(tm.abbrev)}<img src="${LOGO(encodeURIComponent(tm.abbrev))}" style="--z:${tm.z}" alt="" decoding="async" onerror="this.remove()"></span>`;
 
 // ---------- Turning raw games into what the screens show ----------
 function decorate(g) {
