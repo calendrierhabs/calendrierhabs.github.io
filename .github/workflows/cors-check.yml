@@ -11,5 +11,10 @@ jobs:
             echo "== $u"
             curl -s -o /dev/null -D - -H "Origin: https://calendrierhabs.github.io" "https://api-web.nhle.com/v1/$u" | grep -i -E "^HTTP|access-control|cache-control|^age|x-cache|cf-cache"
           done
+          for u in "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/scoreboard" "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/teams/mtl/schedule" "https://api.nhle.com/stats/rest/en/team" "https://api-web.nhle.com/v1/score/2026-10-20"; do
+            echo "== $u"
+            curl -s -L -o /dev/null -D - -H "Origin: https://calendrierhabs.github.io" "$u" | grep -i -E "^HTTP|access-control|cache-control"
+          done
+          curl -s "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/scoreboard?dates=20261020" | head -c 1500; echo
           echo "== preflight"
           curl -s -o /dev/null -D - -X OPTIONS -H "Origin: https://calendrierhabs.github.io" -H "Access-Control-Request-Method: GET" "https://api-web.nhle.com/v1/score/now" | grep -i -E "^HTTP|access-control"
