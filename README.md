@@ -18,6 +18,11 @@ channels, standings, roster and stats from the NHL's public API
 (`api-web.nhle.com`), writes `site/data/habs.json`, and republishes the site on
 GitHub Pages. If the NHL feed fails, the last good data is kept.
 
+GitHub runs those 10-minute schedules much less often than asked, so on game
+days `.github/workflows/gameday.yml` (checked hourly) stays awake from about
+75 minutes before puck drop until the game is final, and starts the update and
+reminder workflows itself every 5 minutes.
+
 ## Working on it
 
 ```sh
