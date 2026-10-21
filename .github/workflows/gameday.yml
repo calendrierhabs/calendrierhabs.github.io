@@ -1,5 +1,5 @@
 # On game days, keeps scores and reminders on time: see scripts/gameday-watch.mjs.
-# Checked every hour; on days without a game it finishes in seconds.
+# Checked twice an hour; on days without a game it finishes in seconds.
 name: Game-day watcher
 
 on:

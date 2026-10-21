@@ -130,12 +130,19 @@ svg.icon { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-w
 /* ---------- Layout ---------- */
 .shell { min-height: 100dvh; display: flex; flex-direction: column; }
 .top { background: var(--header); color: #FFFFFF; padding: calc(16px + env(safe-area-inset-top)) 16px 0; position: sticky; top: 0; z-index: 5; }
-.top-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; max-width: 1200px; margin: 0 auto; }
+/* Phones: logo and controls share the first row, the page title gets its own
+   row so longer French words never run into the buttons. */
+.top-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "brand controls" "title title"; align-items: center; column-gap: 8px; max-width: 1200px; margin: 0 auto; }
+.top-row .brand { grid-area: brand; }
+.top-row .controls { grid-area: controls; }
+.top-row .page-title { grid-area: title; }
 .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
 .brand-badge { display: none; }
 .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--header-muted); }
-.page-title { font-size: 34px; margin-top: 2px; }
-.controls { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+.page-title { font-size: 34px; margin-top: 10px; overflow-wrap: anywhere; }
+@media (max-width: 359px) { .eyebrow { font-size: 12px; letter-spacing: 0.06em; } }
+@media (max-width: 359px) { .eyebrow { font-size: 12px; letter-spacing: 0.06em; } }
+.controls { display: flex; align-items: center; gap: 6px; }
 .round-btn { width: 44px; height: 44px; border-radius: 50%; border: 0; background: rgba(255, 255, 255, 0.12); color: #FFFFFF; display: flex; align-items: center; justify-content: center; cursor: pointer; }
 .lang { display: flex; background: rgba(255, 255, 255, 0.12); border-radius: 999px; padding: 4px; }
 .lang button { min-width: 48px; min-height: 40px; padding: 0 12px; border: 0; border-radius: 999px; cursor: pointer; font-size: 15px; font-weight: 700; letter-spacing: 0.04em; background: transparent; color: #FFFFFF; }
@@ -201,7 +208,7 @@ main { flex: 1; width: 100%; max-width: 1200px; margin: 0 auto; padding: 16px 16
 .matchup { padding: 20px 16px 4px; display: flex; align-items: center; justify-content: space-between; }
 .side { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 120px; text-align: center; font-weight: 600; }
 .vs { font-size: 22px; color: var(--muted); }
-.score { font-size: 44px; }
+.score { font-size: 44px; white-space: nowrap; }
 .hero-line { margin: 8px 16px 0; text-align: center; font-size: 17px; font-weight: 500; }
 .hero-sub { margin: 2px 16px 0; text-align: center; font-size: 15px; color: var(--muted); }
 .hero-watch { margin: 16px 16px 16px; padding-top: 16px; border-top: 1px solid var(--line); }
@@ -223,6 +230,7 @@ main { flex: 1; width: 100%; max-width: 1200px; margin: 0 auto; padding: 16px 16
 .dow .long { display: none; }
 .grid { padding-bottom: 12px; }
 .day { height: 58px; border-radius: 12px; display: flex; flex-direction: column; align-items: stretch; justify-content: space-between; padding: 6px 6px 5px; cursor: pointer; text-align: left; background: var(--empty-bg); border: 1px solid var(--empty-line); color: var(--text); min-width: 0; }
+@media (max-width: 899px) { .day { padding: 6px 3px 5px 4px; } }
 .day.blank { visibility: hidden; }
 .day.past { background: var(--past-bg); color: var(--past-text); border: 2px solid transparent; }
 .day.next { background: var(--next-bg); color: #FFFFFF; border: 2px solid var(--next-line); }
@@ -232,7 +240,8 @@ main { flex: 1; width: 100%; max-width: 1200px; margin: 0 auto; padding: 16px 16
 .day.today .day-num { display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; border-radius: 10px; background: var(--today-dot); color: var(--today-text); font-size: 12px; font-weight: 700; }
 .day-res { font-size: 11px; font-weight: 700; }
 .day-res:empty { display: none; }
-.day-opp { font-family: "Barlow Condensed", sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.02em; white-space: nowrap; overflow: hidden; }
+/* Shrinks on narrow phones so "@WSH" still fits in a day. */
+.day-opp { font-family: "Barlow Condensed", sans-serif; font-size: min(14px, 3.25vw); font-weight: 700; letter-spacing: 0; white-space: nowrap; overflow: hidden; }
 .day-sub { display: none; }
 .legend { display: flex; gap: 14px; flex-wrap: wrap; padding: 2px 14px 14px; font-size: 14px; color: var(--text-2); }
 .legend span { display: inline-flex; align-items: center; gap: 6px; }
@@ -283,7 +292,7 @@ table.standings { width: 100%; border-collapse: collapse; font-variant-numeric: 
 @media (min-width: 900px) {
   body { font-size: 17px; }
   .top { padding: 14px 32px 0; }
-  .top-row { align-items: center; gap: 24px; }
+  .top-row { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
   .brand-badge { display: flex; }
   .page-title { display: none; }
   .eyebrow { display: none; }
@@ -291,7 +300,6 @@ table.standings { width: 100%; border-collapse: collapse; font-variant-numeric: 
   .top-tabs { display: flex; gap: 4px; flex: 1; }
   .top-tabs button { min-height: 44px; padding: 0 16px; border: 0; border-radius: 10px; background: transparent; color: var(--header-muted); font-size: 16px; font-weight: 600; cursor: pointer; }
   .top-tabs button[aria-current="page"] { background: rgba(255, 255, 255, 0.14); color: #FFFFFF; font-weight: 700; }
-  .controls { margin-bottom: 0; }
   .stripes { margin: 14px -32px 0; }
   .bottom-nav { display: none; }
   main { padding: 24px 32px 40px; }

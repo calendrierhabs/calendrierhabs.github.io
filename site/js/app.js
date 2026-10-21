@@ -1,11 +1,13 @@
 import { STR } from "./i18n.js";
 import { team } from "./teams.js";
 import * as reminders from "./reminders.js";
+import { liveCandidate, fetchLive } from "./live.js";
 
 const US = "MTL";
 // Everything is shown in Montréal time, which is also what the TV listings use.
 const TZ = "America/Toronto";
 const REFRESH_MS = 5 * 60 * 1000;
+const LIVE_MS = 20 * 1000;
 
 // ---------- Saved preferences (each device remembers its own) ----------
 const store = {
@@ -33,6 +35,8 @@ const state = {
   data: null,
   status: null,
   error: false,
+  // Live score for the game on right now, read every few seconds (js/live.js).
+  live: null, // { id, patch, at }
 };
 
 const app = document.getElementById("app");
@@ -97,7 +101,10 @@ function decorate(g) {
   };
 }
 
-const allGames = () => (state.data?.games || []).map(decorate).sort((a, b) => a.date - b.date);
+// The data file is the reference, but while it still shows a game as not over,
+// the fresher live score is laid over it.
+const withLive = (g) => (state.live?.id === g.id && g.state !== "FINAL" ? { ...g, ...state.live.patch } : g);
+const allGames = () => (state.data?.games || []).map((g) => decorate(withLive(g))).sort((a, b) => a.date - b.date);
 
 function tvList(g) {
   const s = t();
@@ -143,7 +150,8 @@ const divShort = (code) => (t().division[code] || "").replace(/^Division /, "").
 
 function updatedNote() {
   const s = t();
-  const when = state.status?.checkedAt || state.data?.updatedAt;
+  const checked = state.status?.checkedAt || state.data?.updatedAt;
+  const when = state.live && (!checked || state.live.at > Date.parse(checked)) ? state.live.at : checked;
   if (!navigator.onLine) return `<p class="note">${s.offline}</p>`;
   if (!when) return "";
   const mins = Math.max(0, Math.round((Date.now() - new Date(when)) / 60000));
@@ -461,10 +469,10 @@ function render() {
           <span class="badge brand-badge us" style="background:#AF1E2D;color:#FFFFFF;width:44px;height:44px">MTL</span>
           <div>
             <div class="eyebrow">${s.eyebrow}</div>
-            <h1 class="page-title">${s.tabs[state.tab]}</h1>
             <div class="brand-name">${s.eyebrow}</div>
           </div>
         </div>
+        <h1 class="page-title">${s.tabs[state.tab]}</h1>
         <nav class="top-tabs" aria-label="Sections">${Object.keys(TABS).map(topTab).join("")}</nav>
         <div class="controls">
           <button class="round-btn" data-action="theme" aria-label="${dark ? s.themeToLight : s.themeToDark}">${icon(dark ? "sun" : "moon")}</button>
@@ -527,6 +535,7 @@ window.addEventListener("hashchange", () => {
 
 // ---------- Data ----------
 async function load() {
+  const first = !state.data;
   try {
     const res = await fetch(`data/habs.json?t=${Date.now()}`, { cache: "no-store" });
     if (!res.ok) throw new Error(res.status);
@@ -540,14 +549,36 @@ async function load() {
     if (res.ok) state.status = await res.json();
   } catch {}
   render();
+  if (first && state.data) liveTick();
+}
+
+async function liveTick() {
+  if (document.visibilityState !== "visible" || !navigator.onLine) return;
+  const game = liveCandidate(state.data?.games);
+  if (!game) {
+    if (state.live) { state.live = null; render(); }
+    return;
+  }
+  // A final score only needs rechecking now and then until the data file catches up.
+  if (state.live?.id === game.id && state.live.patch.state === "FINAL" && Date.now() - state.live.at < 5 * 60 * 1000) return;
+  try {
+    const patch = await fetchLive(game);
+    if (!patch) return;
+    const before = JSON.stringify(state.live?.patch);
+    state.live = { id: game.id, patch, at: Date.now() };
+    if (JSON.stringify(patch) !== before) render();
+    // Once it's over, pick up the final stats and standings too.
+    if (patch.state === "FINAL" && before && !before.includes('"FINAL"')) load();
+  } catch {}
 }
 
 reminders.start({ lang: () => state.lang, onChange: render });
 render();
 load();
 setInterval(load, REFRESH_MS);
+setInterval(liveTick, LIVE_MS);
 document.addEventListener("visibilitychange", () => {
-  if (document.visibilityState === "visible") load();
+  if (document.visibilityState === "visible") load().then(liveTick);
 });
 window.addEventListener("online", load);
 window.addEventListener("offline", render);
