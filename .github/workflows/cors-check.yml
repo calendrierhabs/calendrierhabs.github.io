@@ -7,9 +7,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          curl -s "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/scoreboard?dates=20261020" > sb.json
-          jq -c '[.events[] | {id, date, name, shortName, status, comps: [.competitions[0].competitors[] | {homeAway, score, abbr: .team.abbreviation, linescores}], sit: .competitions[0].situation, bc: .competitions[0].broadcasts}] | map(select(.shortName|test("MTL")))' sb.json
-          echo "== all abbrs"
-          jq -c '[.events[].competitions[0].competitors[].team.abbreviation]' sb.json
-          echo "== today"
-          curl -s "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/scoreboard" | jq -c '[.events[] | {shortName, st: .status.type.name, detail: .status.type.detail, clock: .status.displayClock, period: .status.period}] | .[0:4]'
+          curl -s https://api-web.nhle.com/v1/standings/now | jq -r '.standings[0:3][] | .teamLogo'
+          for t in ANA BOS BUF CGY CAR CHI COL CBJ DAL DET EDM FLA LAK MIN MTL NSH NJD NYI NYR OTT PHI PIT SJS SEA STL TBL TOR UTA VAN VGK WSH WPG; do
+            for v in light dark; do
+              printf "%s_%s %s\n" $t $v "$(curl -s -o /dev/null -w '%{http_code} %{size_download} %{content_type}' -H 'Referer: https://calendrierhabs.github.io/' https://assets.nhle.com/logos/nhl/svg/${t}_${v}.svg)"
+            done
+          done
+          curl -sI https://assets.nhle.com/logos/nhl/svg/MTL_light.svg | grep -i -E "cache|access-control|cross-origin|content-security"
+          mkdir -p logos && for t in MTL SJS UTA BOS; do for v in light dark; do curl -s -o logos/${t}_${v}.svg https://assets.nhle.com/logos/nhl/svg/${t}_${v}.svg; done; done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: logos
+          path: logos
