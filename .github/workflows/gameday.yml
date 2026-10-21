@@ -1,0 +1,31 @@
+# On game days, keeps scores and reminders on time: see scripts/gameday-watch.mjs.
+# Checked every hour; on days without a game it finishes in seconds.
+name: Game-day watcher
+
+on:
+  schedule:
+    - cron: "17 * * * *"
+    - cron: "47 * * * *"
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+concurrency:
+  group: gameday
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Watch today's game
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/gameday-watch.mjs
