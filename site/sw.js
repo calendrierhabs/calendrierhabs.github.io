@@ -1,7 +1,10 @@
 // Offline support. Everything is fetched fresh when there's a connection,
 // and the last good copy is used when there isn't, so the app always opens.
-const CACHE = "habs-v2";
-const SHELL = ["./", "index.html", "css/app.css", "js/app.js", "js/i18n.js", "js/teams.js", "js/reminders.js", "css/reminders.css", "manifest.webmanifest", "icons/icon-192.png"];
+const CACHE = "habs-v3";
+const SHELL = ["./", "index.html", "css/app.css", "js/app.js", "js/i18n.js", "js/teams.js", "js/reminders.js", "js/live.js", "css/reminders.css", "css/fonts.css", "manifest.webmanifest", "icons/icon-192.png",
+  "fonts/barlow-condensed-latin-600-normal.woff2", "fonts/barlow-condensed-latin-700-normal.woff2",
+  "fonts/barlow-latin-400-normal.woff2", "fonts/barlow-latin-500-normal.woff2",
+  "fonts/barlow-latin-600-normal.woff2", "fonts/barlow-latin-700-normal.woff2"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));
@@ -20,8 +23,7 @@ self.addEventListener("fetch", (event) => {
   if (req.method !== "GET") return;
   const url = new URL(req.url);
   const sameOrigin = url.origin === self.location.origin;
-  const fonts = url.hostname === "fonts.googleapis.com" || url.hostname === "fonts.gstatic.com";
-  if (!sameOrigin && !fonts) return;
+  if (!sameOrigin) return;
 
   // Data files carry a cache-busting ?t=; store them under one key.
   const key = sameOrigin && url.pathname.includes("/data/") ? url.origin + url.pathname : req;

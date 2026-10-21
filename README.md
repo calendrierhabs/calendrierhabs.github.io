@@ -19,9 +19,15 @@ channels, standings, roster and stats from the NHL's public API
 GitHub Pages. If the NHL feed fails, the last good data is kept.
 
 GitHub runs those 10-minute schedules much less often than asked, so on game
-days `.github/workflows/gameday.yml` (checked hourly) stays awake from about
-75 minutes before puck drop until the game is final, and starts the update and
-reminder workflows itself every 5 minutes.
+days `.github/workflows/gameday.yml` (checked twice an hour) picks up the game
+up to 12 hours ahead, stays awake from about 75 minutes before puck drop until
+the game is final, and starts the update and reminder workflows itself every 5
+minutes. Runs are capped near 6 hours, so a run that is about to stop starts
+the next one itself.
+
+While a game is on, the app itself also reads the score from ESPN's public
+scoreboard every 20 seconds (`site/js/live.js`), since the NHL feed can't be
+read from a web page. The data file takes over again once it has the final.
 
 ## Working on it
 

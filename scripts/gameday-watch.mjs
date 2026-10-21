@@ -4,6 +4,10 @@
 // 75 minutes before the game until it's over and starts the other workflows
 // itself every 5 minutes. Runs started this way aren't delayed by GitHub.
 //
+// The hourly check that starts this script is delayed too, so it begins
+// watching up to 12 hours ahead. A run can only last about 6 hours, so when
+// one runs out of time before the game is over it starts the next one itself.
+//
 // Usage: node scripts/gameday-watch.mjs [--dry]
 
 const TEAM = "MTL";
@@ -15,6 +19,8 @@ const MIN = 60000;
 const TICK = 5 * MIN;
 const LEAD = 75 * MIN; // start this long before the game
 const MAX_RUN = 340 * MIN; // stay under the 6-hour job limit
+const AHEAD = 12 * 60 * MIN; // start watching this long before the game
+const AFTER = 5 * 60 * MIN; // give up this long after the start
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const done = (g) => g.gameState === "FINAL" || g.gameState === "OFF";
@@ -25,11 +31,11 @@ async function schedule() {
   return (await res.json()).games || [];
 }
 
-// The game worth watching: not over, and starting within 3 hours or already on.
+// The game worth watching: not over, and starting within 12 hours or already on.
 export function pick(games, now) {
   return games.find((g) => {
     const start = Date.parse(g.startTimeUTC);
-    return !done(g) && g.gameState !== "PPD" && now > start - 3 * 60 * MIN && now < start + 5 * 60 * MIN;
+    return !done(g) && g.gameState !== "PPD" && now > start - AHEAD && now < start + AFTER;
   });
 }
 
@@ -46,15 +52,27 @@ async function dispatch(workflow) {
 async function main() {
   const began = Date.now();
   const game = pick(await schedule(), began);
-  if (!game) return console.log("No Habs game in the next 3 hours. Nothing to watch.");
+  if (!game) return console.log("No Habs game in the next 12 hours. Nothing to watch.");
 
   const start = Date.parse(game.startTimeUTC);
-  const deadline = Math.min(start + 5 * 60 * MIN, began + MAX_RUN);
+  const gameEnd = start + AFTER;
+  const runEnd = began + MAX_RUN;
   console.log(`Watching game ${game.id}, starting ${game.startTimeUTC}.`);
 
-  if (Date.now() < start - LEAD) await sleep(start - LEAD - Date.now());
+  const handOff = async () => {
+    console.log("This run is almost out of time. Starting a fresh one to keep watching.");
+    await dispatch("gameday.yml");
+  };
 
-  while (Date.now() < deadline) {
+  if (Date.now() < start - LEAD) {
+    if (start - LEAD > runEnd) {
+      await sleep(runEnd - Date.now());
+      return handOff();
+    }
+    await sleep(start - LEAD - Date.now());
+  }
+
+  while (Date.now() < Math.min(gameEnd, runEnd)) {
     if (Date.now() < start + 10 * MIN) await dispatch("reminders.yml");
     await dispatch("update.yml");
     if (Date.now() > start) {
@@ -72,6 +90,7 @@ async function main() {
     }
     await sleep(TICK);
   }
+  if (Date.now() < gameEnd) await handOff();
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) main();
