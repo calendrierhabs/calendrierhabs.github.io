@@ -1,0 +1,15 @@
+name: CORS check (temporary)
+on:
+  push:
+    branches: [claude/cors-check]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          for u in "gamecenter/2026020141/landing" "score/now" "club-schedule-season/MTL/now" "gamecenter/2026020141/play-by-play"; do
+            echo "== $u"
+            curl -s -o /dev/null -D - -H "Origin: https://calendrierhabs.github.io" "https://api-web.nhle.com/v1/$u" | grep -i -E "^HTTP|access-control|cache-control|^age|x-cache|cf-cache"
+          done
+          echo "== preflight"
+          curl -s -o /dev/null -D - -X OPTIONS -H "Origin: https://calendrierhabs.github.io" -H "Access-Control-Request-Method: GET" "https://api-web.nhle.com/v1/score/now" | grep -i -E "^HTTP|access-control"
