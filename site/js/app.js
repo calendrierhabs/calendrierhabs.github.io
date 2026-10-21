@@ -284,9 +284,10 @@ function viewCalendar() {
     const cls = ["day", g ? (g.past ? "past" : "next") : "", key === todayKey ? "today" : ""].join(" ");
     const sub = g ? (g.past ? g.score : g.live ? s.live : g.timeShort + (g.tv[0] ? " · " + g.tv[0].name : "")) : "";
     const aria = `${longDayLabel(noon(y, m, d))}${g ? ", " + g.long + (g.past ? `, ${s.resWord[g.result] || ""} ${g.score}` : `, ${g.time}`) : ""}`;
-    cells += `<button class="${cls}" data-action="sel" data-key="${key}" aria-pressed="${key === state.sel}" aria-label="${esc(aria)}">
+    const colours = g ? ` style="--tbg:${g.team.bg};--tfg:${g.team.fg}"` : "";
+    cells += `<button class="${cls}"${colours} data-action="sel" data-key="${key}" aria-pressed="${key === state.sel}" aria-label="${esc(aria)}">
       <span class="day-top"><span class="day-num">${d}</span><span class="day-res">${g?.past ? esc(s.res[g.result] || "") : ""}</span></span>
-      <span><span class="day-opp" style="display:block">${g ? (g.home ? "" : "@") + esc(g.opp) : ""}</span><span class="day-sub">${esc(sub)}</span></span>
+      <span><span class="day-opp" style="display:block">${g ? (g.home ? icon("home") : "@") + esc(g.opp) : ""}</span><span class="day-sub">${esc(sub)}</span></span>
     </button>`;
   }
 
@@ -320,7 +321,8 @@ function viewCalendar() {
           <span><span class="sw next"></span>${s.legendNext}</span>
           <span><span class="sw past"></span>${s.legendPast}</span>
           <span><span class="sw today"></span>${s.today}</span>
-          <span style="font-weight:600">${s.legendAway}</span>
+          <span>${icon("home")}${s.legendHome}</span>
+          <span><b>@</b>${s.legendAway}</span>
         </div>
       </section>
       <section class="card card-pad cal-detail" aria-live="polite">

@@ -25,6 +25,7 @@
   --shadow: 0 1px 2px rgba(19, 25, 74, 0.08), 0 8px 24px rgba(19, 25, 74, 0.08);
   --badge-ring: none;
   --past-bg: #E9ECF2;
+  --fade: 22%;
   --past-text: #3B4157;
   --next-bg: #192168;
   --next-line: #192168;
@@ -79,6 +80,7 @@
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.20), 0 10px 28px rgba(0, 0, 0, 0.28);
   --badge-ring: 0 0 0 2px rgba(255, 255, 255, 0.85);
   --past-bg: rgba(255, 255, 255, 0.10);
+  --fade: 20%;
   --past-text: #FBE3E5;
   --next-bg: #192168;
   --next-line: #5B6EE1;
@@ -239,8 +241,11 @@ main { flex: 1; width: 100%; max-width: 1200px; margin: 0 auto; padding: 16px 16
 .day { height: 58px; border-radius: 12px; display: flex; flex-direction: column; align-items: stretch; justify-content: space-between; padding: 6px 6px 5px; cursor: pointer; text-align: left; background: var(--empty-bg); border: 1px solid var(--empty-line); color: var(--text); min-width: 0; }
 @media (max-width: 899px) { .day { padding: 6px 3px 5px 4px; } }
 .day.blank { visibility: hidden; }
-.day.past { background: var(--past-bg); color: var(--past-text); border: 2px solid transparent; }
-.day.next { background: var(--next-bg); color: #FFFFFF; border: 2px solid var(--next-line); }
+/* Game days take the opponent's colours: solid when it's coming up,
+   faded once it's been played. */
+.day.next { background: var(--tbg, var(--next-bg)); color: var(--tfg, #FFFFFF); border: 2px solid transparent; }
+.day.past { background: color-mix(in srgb, var(--tbg, var(--next-bg)) var(--fade), var(--surface)); color: var(--text); border: 2px solid transparent; }
+.day-opp svg.icon { width: 0.85em; height: 0.85em; margin-right: 1px; vertical-align: -0.05em; stroke-width: 2.6; }
 .day[aria-pressed="true"] { outline: 3px solid var(--sel-ring); outline-offset: 2px; }
 .day-top { display: flex; justify-content: space-between; align-items: center; gap: 2px; }
 .day-num { font-size: 13px; font-weight: 600; }
@@ -253,8 +258,9 @@ main { flex: 1; width: 100%; max-width: 1200px; margin: 0 auto; padding: 16px 16
 .legend { display: flex; gap: 14px; flex-wrap: wrap; padding: 2px 14px 14px; font-size: 14px; color: var(--text-2); }
 .legend span { display: inline-flex; align-items: center; gap: 6px; }
 .sw { width: 14px; height: 14px; border-radius: 4px; }
-.sw.next { background: var(--next-bg); border: 2px solid var(--next-line); }
-.sw.past { background: var(--past-bg); }
+.sw.next { background: var(--next-bg); }
+.sw.past { background: color-mix(in srgb, var(--next-bg) var(--fade), var(--surface)); }
+.legend svg.icon { width: 15px; height: 15px; }
 .sw.today { border-radius: 50%; background: var(--today-dot); }
 .detail-head { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
 .detail-title { font-weight: 700; font-size: 19px; }
