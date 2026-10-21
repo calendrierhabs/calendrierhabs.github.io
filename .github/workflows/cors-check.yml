@@ -6,7 +6,7 @@ permissions:
   contents: write
 jobs:
   check:
-    if: "!contains(github.event.head_commit.message, 'probe done')"
+    if: "!contains(github.event.head_commit.message, 'darklogos done')"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -14,6 +14,6 @@ jobs:
         with:
           node-version: 22
       - run: |
-          mkdir -p probe && cd tools && npm init -y >/dev/null && npm i playwright@1.47.2 >/dev/null 2>&1 && npx playwright install --with-deps firefox >/dev/null 2>&1 && cd .. && cp tools/probe.mjs tools/p.mjs && node tools/p.mjs || echo "probe crashed $?" >> probe/ff-log.txt
+          mkdir -p darklogos && for t in ANA BOS BUF CGY CAR CHI COL CBJ DAL DET EDM FLA LAK MIN MTL NSH NJD NYI NYR OTT PHI PIT SJS SEA STL TBL TOR UTA VAN VGK WSH WPG; do curl -s -o darklogos/${t}_dark.svg https://assets.nhle.com/logos/nhl/svg/${t}_dark.svg; done
           git config user.name bot && git config user.email bot@example.com
-          git add probe && git commit -m "probe done" && git push
+          git add probe && git commit -m "darklogos done" && git push
