@@ -171,8 +171,10 @@ main { flex: 1; width: 100%; max-width: 1200px; margin: 0 auto; padding: 16px 16
 .banner { background: var(--surface); border-radius: 14px; padding: 10px 14px; font-size: 15px; color: var(--text-2); }
 
 .badge { position: relative; overflow: hidden; width: 40px; height: 40px; flex: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 15px; box-shadow: var(--badge-ring); }
-.badge img { position: absolute; inset: 0; width: 100%; height: 100%; box-sizing: border-box; padding: 12%; object-fit: contain; background: #FFFFFF; border-radius: 50%; }
-.badge.us img { padding: 16%; }
+/* The logo files have wide empty margins, so each one is enlarged by its
+   team's z (teams.js) and the circle crops the white around it. */
+.badge img { position: absolute; left: 50%; top: 50%; width: calc(var(--z, 1.25) * 100%); height: calc(var(--z, 1.25) * 100%); transform: translate(-50%, -50%); object-fit: contain; background: #FFFFFF; }
+.badge.us img { width: calc(var(--z, 1.25) * 88%); height: calc(var(--z, 1.25) * 88%); }
 .badge.xl { width: 68px; height: 68px; font-size: 24px; }
 .badge.lg { width: 54px; height: 54px; font-size: 19px; }
 .badge.sm { width: 32px; height: 32px; font-size: 12px; }
