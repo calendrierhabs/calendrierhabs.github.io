@@ -1,0 +1,31 @@
+resp 200 https://calendrierhabs.github.io/js/app.js sw=false
+resp 200 https://calendrierhabs.github.io/js/live.js sw=false
+resp 200 https://calendrierhabs.github.io/js/teams.js sw=false
+resp 200 https://calendrierhabs.github.io/js/i18n.js sw=false
+resp 200 https://calendrierhabs.github.io/js/reminders.js sw=false
+resp 200 https://assets.nhle.com/logos/nhl/svg/MTL_light.svg sw=false
+resp 200 https://assets.nhle.com/logos/nhl/svg/BUF_light.svg sw=false
+resp 200 https://assets.nhle.com/logos/nhl/svg/CHI_light.svg sw=false
+resp 200 https://assets.nhle.com/logos/nhl/svg/WPG_light.svg sw=false
+resp 200 https://assets.nhle.com/logos/nhl/svg/WSH_light.svg sw=false
+resp 200 https://assets.nhle.com/logos/nhl/svg/DAL_light.svg sw=false
+resp 200 https://assets.nhle.com/logos/nhl/svg/STL_light.svg sw=false
+resp 200 https://assets.nhle.com/logos/nhl/svg/SJS_light.svg sw=false
+imgs: 9
+html badge: <span class="badge brand-badge us" style="background:#AF1E2D;color:#FFFFFF">MTL<img src="https://assets.nhle.com/logos/nhl/svg/MTL_light.svg" alt="" decoding="async" onerror="this.remove()"></span>
+resp 200 https://calendrierhabs.github.io/js/app.js sw=true
+resp 200 https://calendrierhabs.github.io/js/teams.js sw=true
+resp 200 https://calendrierhabs.github.io/js/live.js sw=true
+resp 200 https://calendrierhabs.github.io/js/reminders.js sw=true
+resp 200 https://calendrierhabs.github.io/js/i18n.js sw=true
+resp 200 https://assets.nhle.com/logos/nhl/svg/MTL_light.svg sw=true
+resp 200 https://assets.nhle.com/logos/nhl/svg/CHI_light.svg sw=true
+resp 200 https://assets.nhle.com/logos/nhl/svg/SJS_light.svg sw=true
+resp 200 https://assets.nhle.com/logos/nhl/svg/BUF_light.svg sw=true
+resp 200 https://assets.nhle.com/logos/nhl/svg/WSH_light.svg sw=true
+resp 200 https://assets.nhle.com/logos/nhl/svg/WPG_light.svg sw=true
+resp 200 https://assets.nhle.com/logos/nhl/svg/STL_light.svg sw=true
+resp 200 https://assets.nhle.com/logos/nhl/svg/DAL_light.svg sw=true
+after reload imgs: 9 sw=true
+live app.js has LOGO: true
+direct: 200 age=100; cache-control=public, max-age=7200; cf-cache-status=HIT; cf-ray=a4dd2d3cb9bd8462-SJC; connection=keep-alive; content-encoding=br; content-type=image/svg+xml; date=Wed, 21 Oct 2026 03:29:13 GMT; etag=W/"d9d413f49807a06983602612ca07beed"; expires=Wed, 21 Oct 2026 05:29:13 GMT; last-modified=Tue, 28 Oct 2025 18:24:44 GMT; server=cloudflare; transfer-encoding=chunked; x-amz-id-2=ObOlj2lSqs6JX7QSHklq3IbEifVA5yfIlGtakEMzn9ZexzCBqtOMYqhcwFUs2LMhp9eBwnnuxjls4gVCBV85DcvqOue0Y8b6; x-amz-request-id=8NNMXM35HFJQQ7FQ; x-amz-version-id=ZKi_r1Sn6FHky1WWLz3ua9QMWf3iAPuq
