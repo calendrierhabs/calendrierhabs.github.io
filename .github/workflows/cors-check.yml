@@ -6,14 +6,14 @@ permissions:
   contents: write
 jobs:
   check:
-    if: "!contains(github.event.head_commit.message, 'logos fetched')"
+    if: "!contains(github.event.head_commit.message, 'probe done')"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
       - run: |
-          mkdir -p logos
-          for t in ANA BOS BUF CGY CAR CHI COL CBJ DAL DET EDM FLA LAK MIN MTL NSH NJD NYI NYR OTT PHI PIT SJS SEA STL TBL TOR UTA VAN VGK WSH WPG; do
-            curl -s -o logos/${t}_light.svg https://assets.nhle.com/logos/nhl/svg/${t}_light.svg
-          done
+          mkdir -p probe && cd tools && npm init -y >/dev/null && npm i playwright@1.47.2 >/dev/null 2>&1 && cd .. && cp tools/probe.mjs tools/p.mjs && node tools/p.mjs || echo "probe crashed $?" >> probe/log.txt
           git config user.name bot && git config user.email bot@example.com
-          git add logos && git commit -m "logos fetched" && git push
+          git add probe && git commit -m "probe done" && git push
