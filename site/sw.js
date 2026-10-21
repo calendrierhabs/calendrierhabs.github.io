@@ -1,6 +1,6 @@
 // Offline support. Everything is fetched fresh when there's a connection,
 // and the last good copy is used when there isn't, so the app always opens.
-const CACHE = "habs-v3";
+const CACHE = "habs-v4";
 const SHELL = ["./", "index.html", "css/app.css", "js/app.js", "js/i18n.js", "js/teams.js", "js/reminders.js", "js/live.js", "css/reminders.css", "css/fonts.css", "manifest.webmanifest", "icons/icon-192.png",
   "fonts/barlow-condensed-latin-600-normal.woff2", "fonts/barlow-condensed-latin-700-normal.woff2",
   "fonts/barlow-latin-400-normal.woff2", "fonts/barlow-latin-500-normal.woff2",
@@ -23,6 +23,23 @@ self.addEventListener("fetch", (event) => {
   if (req.method !== "GET") return;
   const url = new URL(req.url);
   const sameOrigin = url.origin === self.location.origin;
+  // Team logos and player photos rarely change: use the saved copy first.
+  if (url.hostname === "assets.nhle.com") {
+    event.respondWith(
+      caches.match(req).then(
+        (hit) =>
+          hit ||
+          fetch(req).then((res) => {
+            if (res.ok || res.type === "opaque") {
+              const copy = res.clone();
+              caches.open(CACHE).then((c) => c.put(req, copy));
+            }
+            return res;
+          }),
+      ),
+    );
+    return;
+  }
   if (!sameOrigin) return;
 
   // Data files carry a cache-busting ?t=; store them under one key.

@@ -70,8 +70,11 @@ const ICONS = {
 };
 const icon = (name) => `<svg class="icon" viewBox="0 0 24 24" aria-hidden="true">${ICONS[name]}</svg>`;
 
+// Team logo on a white disc. The coloured initials underneath show through
+// if the logo can't load (offline, or a team the NHL renamed).
+const LOGO = (abbrev) => `https://assets.nhle.com/logos/nhl/svg/${abbrev}_light.svg`;
 const badge = (tm, size = "") =>
-  `<span class="badge ${size}${tm.abbrev === US ? " us" : ""}" style="background:${tm.bg};color:${tm.fg}">${esc(tm.abbrev)}</span>`;
+  `<span class="badge ${size}${tm.abbrev === US ? " us" : ""}" style="background:${tm.bg};color:${tm.fg}">${esc(tm.abbrev)}<img src="${LOGO(encodeURIComponent(tm.abbrev))}" alt="" decoding="async" onerror="this.remove()"></span>`;
 
 // ---------- Turning raw games into what the screens show ----------
 function decorate(g) {
@@ -466,7 +469,7 @@ function render() {
     <header class="top">
       <div class="top-row">
         <div class="brand">
-          <span class="badge brand-badge us" style="background:#AF1E2D;color:#FFFFFF;width:44px;height:44px">MTL</span>
+          ${badge(team(US, state.lang), "brand-badge")}
           <div>
             <div class="eyebrow">${s.eyebrow}</div>
             <div class="brand-name">${s.eyebrow}</div>

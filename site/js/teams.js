@@ -1,4 +1,5 @@
-// Every NHL team: French and English names, plus badge colours.
+// Every NHL team: French and English names, plus badge colours (shown when
+// the team's logo can't load).
 // The data feed also carries names, so a team missing here still displays.
 export const TEAMS = {
   ANA: { city: ["Anaheim", "Anaheim"], name: ["Ducks", "Ducks"], bg: "#F47A38", fg: "#111111" },

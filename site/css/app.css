@@ -137,7 +137,6 @@ svg.icon { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-w
 .top-row .controls { grid-area: controls; }
 .top-row .page-title { grid-area: title; }
 .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
-.brand-badge { display: none; }
 .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--header-muted); }
 .page-title { font-size: 34px; margin-top: 10px; overflow-wrap: anywhere; }
 @media (max-width: 359px) { .eyebrow { font-size: 12px; letter-spacing: 0.06em; } }
@@ -171,10 +170,13 @@ main { flex: 1; width: 100%; max-width: 1200px; margin: 0 auto; padding: 16px 16
 .note { font-size: 13px; color: var(--muted); text-align: center; margin: 0; }
 .banner { background: var(--surface); border-radius: 14px; padding: 10px 14px; font-size: 15px; color: var(--text-2); }
 
-.badge { width: 40px; height: 40px; flex: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 15px; box-shadow: var(--badge-ring); }
+.badge { position: relative; overflow: hidden; width: 40px; height: 40px; flex: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 15px; box-shadow: var(--badge-ring); }
+.badge img { position: absolute; inset: 0; width: 100%; height: 100%; box-sizing: border-box; padding: 12%; object-fit: contain; background: #FFFFFF; border-radius: 50%; }
+.badge.us img { padding: 16%; }
 .badge.xl { width: 68px; height: 68px; font-size: 24px; }
 .badge.lg { width: 54px; height: 54px; font-size: 19px; }
 .badge.sm { width: 32px; height: 32px; font-size: 12px; }
+.brand-badge { width: 44px; height: 44px; }
 .badge.us { box-shadow: inset 0 0 0 4px #FFFFFF, 0 0 0 2px #192168; }
 
 .chip { display: inline-flex; align-items: center; justify-content: center; min-width: 34px; height: 30px; padding: 0 8px; border-radius: 8px; font-weight: 700; font-size: 15px; border: 2px solid transparent; }
@@ -293,7 +295,6 @@ table.standings { width: 100%; border-collapse: collapse; font-variant-numeric: 
   body { font-size: 17px; }
   .top { padding: 14px 32px 0; }
   .top-row { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
-  .brand-badge { display: flex; }
   .page-title { display: none; }
   .eyebrow { display: none; }
   .brand-name { display: block; font-family: "Barlow Condensed", sans-serif; font-size: 26px; font-weight: 700; line-height: 1; }
