@@ -1,5 +1,5 @@
-import { chromium } from "playwright";
-const b = await chromium.launch({ channel: "chrome" });
+import { firefox } from "playwright";
+const b = await firefox.launch();
 const ctx = await b.newContext({ viewport: { width: 412, height: 900 } });
 const p = await ctx.newPage();
 const log = [];
@@ -10,13 +10,13 @@ p.on("response", (r) => { if (r.url().includes("nhle") || r.url().endsWith(".js"
 await p.goto("https://calendrierhabs.github.io/"); await p.waitForTimeout(4000);
 log.push("imgs: " + (await p.locator(".badge img").count()));
 log.push("html badge: " + (await p.locator(".badge").first().evaluate((e) => e.outerHTML)));
-await p.screenshot({ path: "probe/first.png" });
+await p.screenshot({ path: "probe/ff-first.png" });
 await p.reload(); await p.waitForTimeout(4000);
 log.push("after reload imgs: " + (await p.locator(".badge img").count()) + " sw=" + (await p.evaluate(() => !!navigator.serviceWorker.controller)));
-await p.screenshot({ path: "probe/reload.png" });
+await p.screenshot({ path: "probe/ff-reload.png" });
 const f = await (await fetch("https://calendrierhabs.github.io/js/app.js")).text();
 log.push("live app.js has LOGO: " + f.includes("assets.nhle.com/logos"));
 const r = await fetch("https://assets.nhle.com/logos/nhl/svg/MTL_light.svg", { headers: { "sec-fetch-dest": "image", "sec-fetch-mode": "no-cors", "sec-fetch-site": "cross-site", referer: "https://calendrierhabs.github.io/" } });
 log.push("direct: " + r.status + " " + [...r.headers].map((h) => h.join("=")).join("; "));
-(await import("node:fs")).writeFileSync("probe/log.txt", log.join("\n"));
+(await import("node:fs")).writeFileSync("probe/ff-log.txt", log.join("\n"));
 await b.close();

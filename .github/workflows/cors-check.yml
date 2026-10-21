@@ -14,6 +14,6 @@ jobs:
         with:
           node-version: 22
       - run: |
-          mkdir -p probe && cd tools && npm init -y >/dev/null && npm i playwright@1.47.2 >/dev/null 2>&1 && cd .. && cp tools/probe.mjs tools/p.mjs && node tools/p.mjs || echo "probe crashed $?" >> probe/log.txt
+          mkdir -p probe && cd tools && npm init -y >/dev/null && npm i playwright@1.47.2 >/dev/null 2>&1 && npx playwright install --with-deps firefox >/dev/null 2>&1 && cd .. && cp tools/probe.mjs tools/p.mjs && node tools/p.mjs || echo "probe crashed $?" >> probe/ff-log.txt
           git config user.name bot && git config user.email bot@example.com
           git add probe && git commit -m "probe done" && git push
