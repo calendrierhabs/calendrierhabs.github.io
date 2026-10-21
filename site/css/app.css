@@ -170,16 +170,16 @@ main { flex: 1; width: 100%; max-width: 1200px; margin: 0 auto; padding: 16px 16
 .note { font-size: 13px; color: var(--muted); text-align: center; margin: 0; }
 .banner { background: var(--surface); border-radius: 14px; padding: 10px 14px; font-size: 15px; color: var(--text-2); }
 
-.badge { position: relative; overflow: hidden; width: 40px; height: 40px; flex: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 15px; box-shadow: var(--badge-ring); }
-/* The logo files have wide empty margins, so each one is enlarged by its
-   team's z (teams.js) and the circle crops the white around it. */
-.badge img { position: absolute; left: 50%; top: 50%; width: calc(var(--z, 1.25) * 100%); height: calc(var(--z, 1.25) * 100%); transform: translate(-50%, -50%); object-fit: contain; background: #FFFFFF; }
-.badge.us img { width: calc(var(--z, 1.25) * 88%); height: calc(var(--z, 1.25) * 88%); }
+.badge { position: relative; width: 40px; height: 40px; flex: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 15px; background: var(--bg); color: var(--fg); box-shadow: var(--badge-ring); }
+/* With a logo, the circle and initials step aside. The logo files have wide
+   empty margins, so each one is enlarged by its team's z (teams.js). */
+.badge.logo { background: transparent; color: transparent; box-shadow: none; }
+.badge img { position: absolute; left: 50%; top: 50%; width: calc(var(--z, 1.6) * 100%); height: calc(var(--z, 1.6) * 100%); transform: translate(-50%, -50%); object-fit: contain; pointer-events: none; }
 .badge.xl { width: 68px; height: 68px; font-size: 24px; }
 .badge.lg { width: 54px; height: 54px; font-size: 19px; }
 .badge.sm { width: 32px; height: 32px; font-size: 12px; }
 .brand-badge { width: 44px; height: 44px; }
-.badge.us { box-shadow: inset 0 0 0 4px #FFFFFF, 0 0 0 2px #192168; }
+.badge.us:not(.logo) { box-shadow: inset 0 0 0 4px #FFFFFF, 0 0 0 2px #192168; }
 
 .chip { display: inline-flex; align-items: center; justify-content: center; min-width: 34px; height: 30px; padding: 0 8px; border-radius: 8px; font-weight: 700; font-size: 15px; border: 2px solid transparent; }
 .chip.W { background: var(--w-bg); color: var(--w-fg); border-color: var(--w-line); }
@@ -209,7 +209,10 @@ main { flex: 1; width: 100%; max-width: 1200px; margin: 0 auto; padding: 16px 16
 .live-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #FFFFFF; margin-right: 8px; animation: pulse 1.6s ease-in-out infinite; }
 @keyframes pulse { 50% { opacity: 0.3; } }
 @media (prefers-reduced-motion: reduce) { .live-dot { animation: none; } }
-.matchup { padding: 20px 16px 4px; display: flex; align-items: center; justify-content: space-between; }
+/* Split in the two teams' colours, like a TV score bug. */
+.matchup { padding: 20px 16px 16px; display: flex; align-items: center; justify-content: space-between; background: linear-gradient(105deg, var(--left) 0 50%, var(--right) 50% 100%); }
+.matchup .vs, .matchup .score { background: var(--surface); color: var(--text); border-radius: 12px; padding: 4px 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25); }
+.matchup .vs { font-size: 20px; }
 .side { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 120px; text-align: center; font-weight: 600; }
 .vs { font-size: 22px; color: var(--muted); }
 .score { font-size: 44px; white-space: nowrap; }
