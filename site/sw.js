@@ -1,6 +1,6 @@
 // Offline support. Everything is fetched fresh when there's a connection,
 // and the last good copy is used when there isn't, so the app always opens.
-const CACHE = "habs-v4";
+const CACHE = "habs-v5";
 const SHELL = ["./", "index.html", "css/app.css", "js/app.js", "js/i18n.js", "js/teams.js", "js/reminders.js", "js/live.js", "css/reminders.css", "css/fonts.css", "manifest.webmanifest", "icons/icon-192.png",
   "fonts/barlow-condensed-latin-600-normal.woff2", "fonts/barlow-condensed-latin-700-normal.woff2",
   "fonts/barlow-latin-400-normal.woff2", "fonts/barlow-latin-500-normal.woff2",
@@ -45,8 +45,10 @@ self.addEventListener("fetch", (event) => {
   // Data files carry a cache-busting ?t=; store them under one key.
   const key = sameOrigin && url.pathname.includes("/data/") ? url.origin + url.pathname : req;
 
+  // "no-cache" checks with GitHub every time instead of trusting the
+  // browser's 10-minute copy, so an update shows on the next open.
   event.respondWith(
-    fetch(req)
+    fetch(req, { cache: "no-cache" })
       .then((res) => {
         if (res.ok || res.type === "opaque") {
           const copy = res.clone();
