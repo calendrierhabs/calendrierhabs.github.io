@@ -25,6 +25,7 @@
   --shadow: 0 1px 2px rgba(19, 25, 74, 0.08), 0 8px 24px rgba(19, 25, 74, 0.08);
   --badge-ring: none;
   --past-bg: #E9ECF2;
+  --fade: 22%;
   --past-text: #3B4157;
   --next-bg: #192168;
   --next-line: #192168;
@@ -79,6 +80,7 @@
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.20), 0 10px 28px rgba(0, 0, 0, 0.28);
   --badge-ring: 0 0 0 2px rgba(255, 255, 255, 0.85);
   --past-bg: rgba(255, 255, 255, 0.10);
+  --fade: 20%;
   --past-text: #FBE3E5;
   --next-bg: #192168;
   --next-line: #5B6EE1;
@@ -170,16 +172,16 @@ main { flex: 1; width: 100%; max-width: 1200px; margin: 0 auto; padding: 16px 16
 .note { font-size: 13px; color: var(--muted); text-align: center; margin: 0; }
 .banner { background: var(--surface); border-radius: 14px; padding: 10px 14px; font-size: 15px; color: var(--text-2); }
 
-.badge { position: relative; overflow: hidden; width: 40px; height: 40px; flex: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 15px; box-shadow: var(--badge-ring); }
-/* The logo files have wide empty margins, so each one is enlarged by its
-   team's z (teams.js) and the circle crops the white around it. */
-.badge img { position: absolute; left: 50%; top: 50%; width: calc(var(--z, 1.25) * 100%); height: calc(var(--z, 1.25) * 100%); transform: translate(-50%, -50%); object-fit: contain; background: #FFFFFF; }
-.badge.us img { width: calc(var(--z, 1.25) * 88%); height: calc(var(--z, 1.25) * 88%); }
+.badge { position: relative; width: 40px; height: 40px; flex: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 15px; background: var(--bg); color: var(--fg); box-shadow: var(--badge-ring); }
+/* With a logo, the circle and initials step aside. The logo files have wide
+   empty margins, so each one is enlarged by its team's z (teams.js). */
+.badge.logo { background: transparent; color: transparent; box-shadow: none; }
+.badge img { position: absolute; left: 50%; top: 50%; width: calc(var(--z, 1.6) * 100%); height: calc(var(--z, 1.6) * 100%); transform: translate(-50%, -50%); object-fit: contain; pointer-events: none; }
 .badge.xl { width: 68px; height: 68px; font-size: 24px; }
 .badge.lg { width: 54px; height: 54px; font-size: 19px; }
 .badge.sm { width: 32px; height: 32px; font-size: 12px; }
 .brand-badge { width: 44px; height: 44px; }
-.badge.us { box-shadow: inset 0 0 0 4px #FFFFFF, 0 0 0 2px #192168; }
+.badge.us:not(.logo) { box-shadow: inset 0 0 0 4px #FFFFFF, 0 0 0 2px #192168; }
 
 .chip { display: inline-flex; align-items: center; justify-content: center; min-width: 34px; height: 30px; padding: 0 8px; border-radius: 8px; font-weight: 700; font-size: 15px; border: 2px solid transparent; }
 .chip.W { background: var(--w-bg); color: var(--w-fg); border-color: var(--w-line); }
@@ -209,7 +211,10 @@ main { flex: 1; width: 100%; max-width: 1200px; margin: 0 auto; padding: 16px 16
 .live-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #FFFFFF; margin-right: 8px; animation: pulse 1.6s ease-in-out infinite; }
 @keyframes pulse { 50% { opacity: 0.3; } }
 @media (prefers-reduced-motion: reduce) { .live-dot { animation: none; } }
-.matchup { padding: 20px 16px 4px; display: flex; align-items: center; justify-content: space-between; }
+/* Split in the two teams' colours, like a TV score bug. */
+.matchup { padding: 20px 16px 16px; display: flex; align-items: center; justify-content: space-between; background: linear-gradient(105deg, var(--left) 0 50%, var(--right) 50% 100%); }
+.matchup .vs, .matchup .score { background: var(--surface); color: var(--text); border-radius: 12px; padding: 4px 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25); }
+.matchup .vs { font-size: 20px; }
 .side { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 120px; text-align: center; font-weight: 600; }
 .vs { font-size: 22px; color: var(--muted); }
 .score { font-size: 44px; white-space: nowrap; }
@@ -233,11 +238,20 @@ main { flex: 1; width: 100%; max-width: 1200px; margin: 0 auto; padding: 16px 16
 .dow div { text-align: center; font-size: 13px; font-weight: 700; color: var(--muted); padding: 4px 0; text-transform: uppercase; }
 .dow .long { display: none; }
 .grid { padding-bottom: 12px; }
-.day { height: 58px; border-radius: 12px; display: flex; flex-direction: column; align-items: stretch; justify-content: space-between; padding: 6px 6px 5px; cursor: pointer; text-align: left; background: var(--empty-bg); border: 1px solid var(--empty-line); color: var(--text); min-width: 0; }
+.day { height: 80px; border-radius: 12px; display: flex; flex-direction: column; align-items: stretch; justify-content: space-between; padding: 6px 6px 5px; cursor: pointer; text-align: left; background: var(--empty-bg); border: 1px solid var(--empty-line); color: var(--text); min-width: 0; }
 @media (max-width: 899px) { .day { padding: 6px 3px 5px 4px; } }
 .day.blank { visibility: hidden; }
-.day.past { background: var(--past-bg); color: var(--past-text); border: 2px solid transparent; }
-.day.next { background: var(--next-bg); color: #FFFFFF; border: 2px solid var(--next-line); }
+/* Game days take the opponent's colours: solid when it's coming up,
+   faded once it's been played. */
+.day.next { background: var(--tbg, var(--next-bg)); color: var(--tfg, #FFFFFF); border: 2px solid transparent; }
+.day.past { background: color-mix(in srgb, var(--tbg, var(--next-bg)) var(--fade), var(--surface)); color: var(--text); border: 2px solid transparent; }
+/* Phones: the opponent's logo, then home/away and the three letters under it
+   (the letters help put a name to the logo). */
+.day-opp { display: grid; grid-template-columns: auto 1fr; grid-template-areas: "logo logo" "where abbr"; align-items: center; column-gap: 1px; }
+.day-opp .badge.cal { grid-area: logo; width: 24px; height: 24px; font-size: 10px; margin: 0 0 2px 1px; }
+.day-opp .where { grid-area: where; display: flex; }
+.day-opp .abbr { grid-area: abbr; overflow: hidden; }
+.day-opp svg.icon { width: 0.85em; height: 0.85em; flex: none; stroke-width: 2.6; }
 .day[aria-pressed="true"] { outline: 3px solid var(--sel-ring); outline-offset: 2px; }
 .day-top { display: flex; justify-content: space-between; align-items: center; gap: 2px; }
 .day-num { font-size: 13px; font-weight: 600; }
@@ -250,8 +264,9 @@ main { flex: 1; width: 100%; max-width: 1200px; margin: 0 auto; padding: 16px 16
 .legend { display: flex; gap: 14px; flex-wrap: wrap; padding: 2px 14px 14px; font-size: 14px; color: var(--text-2); }
 .legend span { display: inline-flex; align-items: center; gap: 6px; }
 .sw { width: 14px; height: 14px; border-radius: 4px; }
-.sw.next { background: var(--next-bg); border: 2px solid var(--next-line); }
-.sw.past { background: var(--past-bg); }
+.sw.next { background: var(--next-bg); }
+.sw.past { background: color-mix(in srgb, var(--next-bg) var(--fade), var(--surface)); }
+.legend svg.icon { width: 15px; height: 15px; }
 .sw.today { border-radius: 50%; background: var(--today-dot); }
 .detail-head { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
 .detail-title { font-weight: 700; font-size: 19px; }
@@ -320,7 +335,9 @@ table.standings { width: 100%; border-collapse: collapse; font-variant-numeric: 
   .day-num { font-size: 15px; }
   .day.today .day-num { min-width: 24px; height: 24px; border-radius: 12px; font-size: 13px; }
   .day-res { font-size: 12px; padding: 2px 6px; border-radius: 6px; background: var(--surface); color: var(--text); }
-  .day-opp { font-size: 18px; }
+  .day-opp { font-size: 18px; display: flex; gap: 4px; overflow: visible; }
+  .day-opp .badge.cal { width: 32px; height: 32px; font-size: 11px; order: 2; margin: 0 2px 0 auto; }
+  .day-opp .abbr { flex: none; overflow: visible; }
   .day-sub { display: block; font-size: 13px; font-weight: 600; opacity: 0.85; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .cal-head { padding: 18px 16px 12px; }
   .cal-head h2 { font-size: 34px; }
