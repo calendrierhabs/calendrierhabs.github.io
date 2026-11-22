@@ -70,11 +70,12 @@ const ICONS = {
 };
 const icon = (name) => `<svg class="icon" viewBox="0 0 24 24" aria-hidden="true">${ICONS[name]}</svg>`;
 
-// Team logo on a white disc. The coloured initials underneath show through
-// if the logo can't load (offline, or a team the NHL renamed).
-const LOGO = (abbrev) => `https://assets.nhle.com/logos/nhl/svg/${abbrev}_light.svg`;
-const badge = (tm, size = "") =>
-  `<span class="badge ${size}${tm.abbrev === US ? " us" : ""}" style="background:${tm.bg};color:${tm.fg}">${esc(tm.abbrev)}<img src="${LOGO(encodeURIComponent(tm.abbrev))}" style="--z:${tm.z}" alt="" decoding="async" onerror="this.remove()"></span>`;
+// Team logo on its own, the NHL's version for light or dark backgrounds.
+// If it can't load (offline, or a team the NHL renamed), the coloured
+// initials show instead.
+const LOGO = (abbrev, dark) => `https://assets.nhle.com/logos/nhl/svg/${abbrev}_${dark ? "dark" : "light"}.svg`;
+const badge = (tm, size = "", dark = state.theme === "rouge") =>
+  `<span class="badge logo ${size}${tm.abbrev === US ? " us" : ""}" style="--bg:${tm.bg};--fg:${tm.fg}">${esc(tm.abbrev)}<img src="${LOGO(encodeURIComponent(tm.abbrev), dark)}" style="--z:${tm.z}" alt="" decoding="async" onerror="this.parentNode.classList.remove('logo');this.remove()"></span>`;
 
 // ---------- Turning raw games into what the screens show ----------
 function decorate(g) {
@@ -188,10 +189,10 @@ function viewHome() {
     heroCard = `
       <section class="card raised" aria-label="${esc(whenLabel(hero))}">
         ${band}
-        <div class="matchup">
-          <div class="side">${badge(left, "xl")}<span>${esc(left.name)}</span></div>
+        <div class="matchup" style="--left:${left.bg};--right:${right.bg}">
+          <div class="side" style="color:${left.fg}">${badge(left, "xl", true)}<span>${esc(left.name)}</span></div>
           ${mid}
-          <div class="side">${badge(right, "xl")}<span>${esc(right.name)}</span></div>
+          <div class="side" style="color:${right.fg}">${badge(right, "xl", true)}<span>${esc(right.name)}</span></div>
         </div>
         <p class="hero-line">${esc(hero.home ? s.host(hero.team.name) : s.visit(hero.team.name))}</p>
         <p class="hero-sub">${esc(dayLabel(hero.date))}${hero.venue ? " · " + esc(hero.venue) : ""}${hero.kind ? " · " + esc(hero.kind) : ""}</p>
@@ -283,9 +284,10 @@ function viewCalendar() {
     const cls = ["day", g ? (g.past ? "past" : "next") : "", key === todayKey ? "today" : ""].join(" ");
     const sub = g ? (g.past ? g.score : g.live ? s.live : g.timeShort + (g.tv[0] ? " · " + g.tv[0].name : "")) : "";
     const aria = `${longDayLabel(noon(y, m, d))}${g ? ", " + g.long + (g.past ? `, ${s.resWord[g.result] || ""} ${g.score}` : `, ${g.time}`) : ""}`;
-    cells += `<button class="${cls}" data-action="sel" data-key="${key}" aria-pressed="${key === state.sel}" aria-label="${esc(aria)}">
+    const colours = g ? ` style="--tbg:${g.team.bg};--tfg:${g.team.fg}"` : "";
+    cells += `<button class="${cls}"${colours} data-action="sel" data-key="${key}" aria-pressed="${key === state.sel}" aria-label="${esc(aria)}">
       <span class="day-top"><span class="day-num">${d}</span><span class="day-res">${g?.past ? esc(s.res[g.result] || "") : ""}</span></span>
-      <span><span class="day-opp" style="display:block">${g ? (g.home ? "" : "@") + esc(g.opp) : ""}</span><span class="day-sub">${esc(sub)}</span></span>
+      <span><span class="day-opp">${g ? `<span class="where">${g.home ? icon("home") : "@"}</span>${badge(g.team, "cal", g.future || state.theme === "rouge")}<span class="abbr">${esc(g.opp)}</span>` : ""}</span><span class="day-sub">${esc(sub)}</span></span>
     </button>`;
   }
 
@@ -319,7 +321,8 @@ function viewCalendar() {
           <span><span class="sw next"></span>${s.legendNext}</span>
           <span><span class="sw past"></span>${s.legendPast}</span>
           <span><span class="sw today"></span>${s.today}</span>
-          <span style="font-weight:600">${s.legendAway}</span>
+          <span>${icon("home")}${s.legendHome}</span>
+          <span><b>@</b>${s.legendAway}</span>
         </div>
       </section>
       <section class="card card-pad cal-detail" aria-live="polite">
@@ -469,7 +472,7 @@ function render() {
     <header class="top">
       <div class="top-row">
         <div class="brand">
-          ${badge(team(US, state.lang), "brand-badge")}
+          ${badge(team(US, state.lang), "brand-badge", true)}
           <div>
             <div class="eyebrow">${s.eyebrow}</div>
             <div class="brand-name">${s.eyebrow}</div>
