@@ -1,8 +1,9 @@
 {
   "v": 1,
   "note": "Devices signed up for game reminders. The list is encrypted; see scripts/send-reminders.mjs.",
-  "devices": "zwXfXclVEk9EfO-b.w2h0R-htwTZwh5Jtbl8JZR1nQaEp6uUxFgL8oCvy2vmHKYs9Wg",
+  "devices": "5BachIRFKKJhe6Cs.A-3vauKemLeMm52m7476--hmlPAyamWxW1FmHykqjUksw27p1g",
   "sent": {
-    "2026020379": "2026-11-23T23:30:16.490Z"
+    "2026020379": "2026-11-23T23:30:16.490Z",
+    "2026020397": "2026-11-26T01:30:15.825Z"
   }
 }
